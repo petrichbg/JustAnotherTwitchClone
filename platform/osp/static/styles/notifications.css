@@ -1,0 +1,36 @@
+#content,
+#pageContent {
+    height: 100%;
+}
+
+#content {
+    padding-top: 0;
+}
+
+#pageContent {
+    padding-top: 30px;
+}
+
+.panel {
+    margin-bottom: 4px;
+    border-radius: 0;
+}
+
+.panel-heading {
+    padding: 4px 15px;
+    border-radius: 0;
+}
+
+.panel-body {
+    padding: 4px 20px;
+}
+
+.panel-body .row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+textarea,
+#notificationPreview {
+    min-height: 140px !important;
+}

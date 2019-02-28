@@ -1,0 +1,6 @@
+<li class="userListGridElement">
+    <a href="{% if dashboard_link %} {% url 'osp:dashboard' user.user.username %} {% else %} {% url 'osp:profile' user.user.username %} {% endif %}" title="{{ user.user.username }}" >
+        {% include "avatar_holder.html" with avatar_src=user.avatar.url %}
+        <span class="lead username">{{ user.user.username }}</span>
+    </a>   
+</li>

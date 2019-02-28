@@ -1,0 +1,115 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %} 
+<link rel="stylesheet" type="text/css" href="{% static 'styles/settings.css' %}?v=2" />
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="{% static 'scripts/ajax_prep.js' %}"></script>
+<script src="{% static 'scripts/settings.js?v=2' %}"></script>
+<script src="{% static 'scripts/tabnav.js' %}"></script>
+{% endblock %}
+
+{% block page_content %}
+<div id="tabContent" role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul id="settingsContent" class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="{% if active_tab_pane == 'profile' %} active {% endif %}">
+        <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Профиль</a>
+    </li>
+    <li role="presentation" class="{% if active_tab_pane == 'change_name' %} active {% endif %}">
+        <a href="#change_name" aria-controls="profile" role="tab" data-toggle="tab">Смена имени</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'profile' %} active {% endif %} container" id="profile">
+        <form id="userSettingsProfileForm" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            {% if user_settings_profile_form_success %}
+            <div class="alert alert-success" role="alert">
+                Успешно сохранено
+            </div>
+            {% endif %}
+            <div class="form-group row">
+                <div class="col-xs-6">
+                    <label for="{{ user_settings_profile_form.bio.id_for_label }}">О себе и о стриме</label>
+                    {{ user_settings_profile_form.bio }}
+                    <h5>Поддерживается <a href="{% url 'osp:markdown' %}">разметка</a></h5>
+                </div>
+                <div class="col-xs-6">
+                    <label>Предварительный просмотр</label>
+                    <div class="well" id="bioPreview">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-7 col-sm-5">
+                    {% include "avatar_holder.html" with avatar_src=avatar_url %}
+                    
+                    <label for="{{ user_settings_profile_form.avatar.id_for_label }}">Аватар</label>
+                    {{ user_settings_profile_form.avatar }}
+                    <div class="checkbox">
+                        <label for="{{ user_settings_profile_form.remove_avatar.id_for_label }}">
+                            {{ user_settings_profile_form.remove_avatar }} Удалить аватар
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-5 col-sm-7">
+                    <div class="checkbox">
+                        <label for="{{ user_settings_profile_form.show_subscriptions_on_top.id_for_label }}">
+                            {{ user_settings_profile_form.show_subscriptions_on_top }} Начинать список стримов с тех, на которые вы подписаны
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="{{ user_settings_profile_form.receive_follow_notifications.id_for_label }}">
+                            {{ user_settings_profile_form.receive_follow_notifications }} Получать оповещения о подписках на ваш канал
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="clear: left;">
+                <button type="submit" class="btn btn-default" name="user_settings_profile_form" value="user_settings_profile_form">Сохранить</button>
+            </div> 
+        </form>  
+    </div>
+    <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'change_name' %} active {% endif %} container" id="change_name">
+        <div class="form-group">
+            <p class="help-block">Вы можете изменить имя пользователя раз в год. Все изменения будут отображены на странице вашего профиля.</p>
+            {% if user_settings_change_name_form_available %}
+            <p class="help-block">Допустимые символы: a-Z 0-9 - _</p>
+            {% endif %}
+        </div>
+        {% if user_settings_change_name_form_available %}
+        <form id="UserSettingsChangeNameForm" action="" method="post" enctype="multipart/form-data" onsubmit="return confirm('Вы уверены, что хотите сменить имя?');">
+        {% csrf_token %}
+            
+            {% if user_settings_change_name_form_success %}
+            <div class="alert alert-success" role="alert">
+                Успешно сохранено
+            </div>
+            {% endif %}
+            {% if user_settings_change_name_form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ user_settings_change_name_form.non_field_errors }}
+                {{ user_settings_change_name_form.username.errors }}
+            </div>
+            {% endif %}
+            <div class="form-group input-group">   
+                {{ user_settings_change_name_form.new_username }}
+                <span id="{{ user_settings_change_name_form.new_username.id_for_label }}ButtonGroup" class="input-group-btn">
+                    <button type="submit" class="btn btn-default" name="user_settings_change_name_form" value="user_settings_change_name_form">Сохранить</button>
+                </span>
+            </div>
+        </form>  
+        {% else %}
+        <p class="help-block">Вы сможете изменить имя снова в указанный день: {{user_settings_change_name_form_not_available_until}}</p>
+        {% endif %}
+    </div>    
+  </div>
+
+</div>
+{% endblock %}

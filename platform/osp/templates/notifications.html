@@ -1,0 +1,130 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %} 
+<link rel="stylesheet" type="text/css" href="{% static 'styles/notifications.css' %}" />
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="{% static 'scripts/ajax_prep.js' %}"></script>
+<script src="{% static 'scripts/notifications.js' %}"></script>
+{% if user.is_staff %}
+<script src="{% static 'scripts/notifications_admin.js' %}"></script>
+{% endif %}
+{% endblock %}
+
+{% block page_content %}
+
+<h1 class="text-center {% if notifications_exist %}hidden{% endif %}" id="noNotificationsLabel"><strong>Нет оповещений</strong></h1>
+<h1 class="text-center {% if not notifications_exist %}hidden{% endif %}" id="notificationsLabel"><strong>Оповещения</strong></h1>
+<div class="container">
+    {% if user.is_staff %}
+    <div id="postNotificationErrorContainer" class="alert alert-danger hidden" role="alert">
+    </div>
+
+    <div class="panel panel-danger">
+        <div class="panel-heading" role="tab" id="postNotificationPanelHeader">
+            <h4 class="panel-title">
+                <div class="text-center" role="button" data-toggle="collapse" href="#collapsePostNotificationPanel" aria-expanded="true" aria-controls="collapsePostNotificationPanel">
+                    <strong id="postNotificationLabel">ОПОВЕСТИТЬ</strong>
+                </div>
+            </h4>
+        </div>
+        <div id="collapsePostNotificationPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="postNotificationPanelHeader">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="btn-group pull-left" id="notificationTarget" data-toggle="buttons">
+                            <label class="btn btn-default" data-value="0">
+                                <input type="radio" name="options" id="notificationTargetEveryone" autocomplete="off"> Всех
+                            </label>
+                            <label class="btn btn-default active" data-value="1">
+                                <input type="radio" name="options" id="notificationTargetUser" autocomplete="off" checked> Пользователя
+                            </label>
+                        </div>
+                        <div class="pull-left col-xs-4">
+                            <input class="form-control" id="notificationTargetUsername" placeholder="Имя пользователя" type="text" maxlength="300">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label>Текст оповещения</label>
+                        <textarea id="notificationTextArea" class="form-control" placeholder="Введите текст оповещения" maxlength="10000"></textarea>
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Предварительный просмотр</label>
+                        <div class="well" id="notificationPreview">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-6">
+                        Поддерживается <a href="{% url 'osp:markdown' %}">разметка</a>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <button type="submit" id="postNotificationButton" class="btn btn-primary">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="notifications">
+        {% for notification in user_notifications %}
+        <div class="panel {% if notification.is_new %} panel-primary {% else %} panel-default {% endif %}">
+            <div class="panel-heading container-fluid">
+                <h4 class="panel-title">
+                    <strong id="postNotificationLabel">{{ notification.issue_date | date:'d E Y H:i' }}</strong>
+                    <button
+                        type="button"
+                        class="btn btn-xs btn-default removeNotificationButton pull-right"
+                        data-id="{{ notification.id }}"
+                        data-notification-type="0"
+                        title="Удалить оповещение"
+                        aria-label="Удалить оповещение"
+                        onclick="removeNotification( this )"
+                    >
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                </h4>
+            </div>
+            <div class="panel-body">
+                {{ notification.text | safe }}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for notification in user_follow_notifications %}
+        <div class="panel {% if notification.is_new %} panel-primary {% else %} panel-default {% endif %}">
+            <div class="panel-heading container-fluid">
+                <h4 class="panel-title">
+                    <strong id="postNotificationLabel">{{ notification.issue_date | date:'d E Y H:i' }}</strong>
+                    <button
+                        type="button"
+                        class="btn btn-xs btn-default removeNotificationButton pull-right"
+                        data-id="{{ notification.id }}"
+                        data-notification-type="1"
+                        title="Удалить оповещение"
+                        aria-label="Удалить оповещение"
+                        onclick="removeNotification( this )"
+                    >
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                </h4>
+            </div>
+            <div class="panel-body">
+                {% if notification.followed %}
+                <p>Пользователь <a href="{% url 'osp:profile' notification.follower_user.username %}">{{ notification.follower_user.username }}</a> подписался на вас.</p> 
+                {% else %}
+                <p>Пользователь <a href="{% url 'osp:profile' notification.follower_user.username %}">{{ notification.follower_user.username }}</a> отписался от вас.</p> 
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

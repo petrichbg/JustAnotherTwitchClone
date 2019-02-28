@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/streams.css?v=3' %}" />
+{% endblock %}
+
+{% block additional_scripts %}
+    <script src="{% static 'scripts/jquery.jscroll.min.js' %}"></script>
+    {% if admin_quick_hide %}
+    <script src="{% static 'scripts/ajax_prep.js' %}"></script>
+    <script src="{% static 'scripts/admin_quick_hide.js' %}"></script>
+    {% else %}
+    <script src="{% static 'scripts/streams.js?v=2' %}"></script>
+    {% endif %}
+{% endblock %}
+
+{% block page_content %}
+<div id="backgroundImage" style="background-image: url( '{{ random_background_url }}' )">
+</div>
+<div class="container col-sm-8 col-sm-offset-2 col-xs-12">
+    {% include 'streams_chunk.html' %}
+</div>
+
+{% endblock %}

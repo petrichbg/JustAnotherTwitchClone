@@ -1,0 +1,12 @@
+{
+  "name": "chat_server",
+  "version": "1.0.0",
+  "main": "chatServer.js",
+  "dependencies": {
+    "async": "^2.6.2",
+    "config": "^3.0.1",
+    "cookie": "^0.3.1",
+    "moment": "^2.24.0",
+    "socket.io": "^2.2.0"
+  }
+}

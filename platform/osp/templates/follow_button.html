@@ -1,0 +1,4 @@
+<button id="followButton" type="button" class="btn {% if following %}btn-danger{% else %}btn-primary{% endif %} btn-sm">
+    <span id="followButtonGlyph" class="glyphicon {% if following %}glyphicon-heart-empty{% else %}glyphicon-heart{% endif %}" aria-hidden="true"></span> 
+    <span id="followButtonLabel">{% if following %}Отписаться{% else %}Подписаться{% endif %}</span>
+</button>

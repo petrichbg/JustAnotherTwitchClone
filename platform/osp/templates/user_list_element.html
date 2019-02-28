@@ -1,0 +1,24 @@
+<li class="list-group-item" {% if tooltip %} data-toggle="tooltipBanReason" data-placement="top" title="{{ tooltip }}" {% endif %}>
+    <div class="media-left">
+        <a href="{% if dashboard_link %} {% url 'osp:dashboard' user.user.username %} {% else %} {% url 'osp:profile' user.user.username %} {% endif %}" >{% include "avatar_holder.html" with avatar_src=user.avatar.url avatar_medium=True %}</a>
+    </div>
+    <div class="media-body">
+        <a 
+            href="{% if dashboard_link %}
+                {% url 'osp:dashboard' user.user.username %}
+            {% else %}
+                {% url 'osp:profile' user.user.username %}
+            {% endif %}"
+            
+            class="lead btn btn-lg btn-link"
+        >    
+            {{ user.user.username }}
+        </a>
+        {% if delete_allowed %}
+        <button type="button" class="btn btn-link btn-lg pull-right removeUserListElementButton">Удалить</button>
+        {% endif %}
+        {% if show_ban_date %}
+        <span class="pull-right banDateLabel">{{ ban_date }}</span>
+        {% endif %}
+    </div>
+</li>

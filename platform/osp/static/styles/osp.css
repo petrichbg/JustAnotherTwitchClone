@@ -1,0 +1,195 @@
+html, body {
+    height: 100%;
+    -ms-overflow-style: scrollbar;
+}
+
+.navbar-nav > li > a { padding: 5px 8px }
+.navbar {min-height:30px !important }
+div.tooltip-inner { 
+    white-space:nowrap;
+    max-width:none;
+}
+
+.chatDark a:hover,
+.streamDark .btn-link:hover,
+.chatDark .btn-link:hover,
+.streamDark a:hover {
+    color: #38A2E6;
+}
+
+.navbar-toggle {
+    padding: 6px 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+    #navbar .bannedMark:hover {
+        background-color: rgba( 255, 0, 0, 0.5 );
+    }
+        #navbar .bannedMark a {
+            padding: 2px 4px;
+        }
+
+    #navbar .hot {
+        color: rgb( 255, 100, 0 );
+        text-shadow: 0 0 5px rgba( 255, 100, 0, 0.33 );
+    }
+    #navbar .dropdown-menu {
+        background-color: #222;
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #101010;
+    }
+        #navbar .dropdown-menu li a {
+            color: #9D9D9D;
+            padding: 2px 8px;
+        }
+        #navbar .dropdown-menu li a:hover,
+        #navbar .dropdown-menu li a:focus {
+            color: #FFF;
+            background: inherit;
+        }
+
+    #navbar .glyphicon {
+        font-size: 20px;
+    }
+
+    .userPagesDropdown {
+        min-width: 80px;
+    }
+        
+.usingMarkdown p {
+    white-space: pre-line;
+}
+.usingMarkdown ol, ul {
+    padding-left: 20px;
+}
+
+.glyphContainer {   
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.glyphButton {
+    cursor: pointer;
+}
+
+.verticalAlignCenter {
+    vertical-align: middle;
+}
+
+#content {
+    width: 100%;
+    padding-top: 30px;
+}
+
+#pageContent {
+    width: 100%;
+}
+
+.avatarHolder {
+    /* count on padding and border */
+    display: table;
+    max-width: 66px;
+    max-height: 66px;
+    width: 66px;
+    height: 66px;
+    padding: 0;
+    margin-bottom: 0;
+    
+    border: 0;
+    text-align: center;
+}
+    .avatarHolder.thumbnail {
+        background-color: transparent;
+    }
+    .avatarHolder .avatarHolderCell {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .avatarHolder img {
+        max-width: 64px;
+        max-height: 64px;
+    }
+        .avatarHolder.tiny img {
+            max-width: 30px;
+            max-height: 30px;
+        }
+        .avatarHolder.medium img {
+            max-width: 46px;
+            max-height: 46px;
+        }
+    .avatarHolder.tiny {
+        max-width: 32px;
+        max-height: 32px;
+        width: 32px;
+        height: 32px;
+    }
+    .avatarHolder.medium {
+        max-width: 48px;
+        max-height: 48px;
+        width: 48px;
+        height: 48px;
+    }
+    
+    
+.lineBreak {
+    white-space: pre-wrap;
+}
+
+.streamingButton {
+    width: 64px;
+    height: 24px;
+    
+    font-weight: 700;
+    font-size: 14px;
+    background-color: #F00;
+    text-align: center;
+    line-height: 24px;
+    display: inline-block;
+}
+    .streamingButton:hover {
+        background-color: #C00;
+    }
+    a.streamingButton,
+    a.streamingButton:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+.indent {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+    
+.listIcon {
+    list-style: none;
+    padding-left: 20px;
+}
+.listIcon li {
+    padding-left: 20px;
+}
+.listIconAdd {
+    background: url( '../images/add.png' ) no-repeat 0 2px;
+}
+.listIconCross {
+    background: url( '../images/cross.png' ) no-repeat 0 2px;
+}
+.listIconInformative {
+    background: url( '../images/informative.png' ) no-repeat 0 2px;
+}
+.listIconBox {
+    background: url( '../images/box.png' ) no-repeat 0 2px;
+}
+.listIconFix {
+    background: url( '../images/wrench.png' ) no-repeat 0 2px;
+}
+.listIconWinner {
+    background: url( '../images/winner.png' ) no-repeat 0 2px;
+}
+.listIconHelp {
+    background: url( '../images/help.png' ) no-repeat 0 2px;
+}

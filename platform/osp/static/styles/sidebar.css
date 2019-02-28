@@ -1,0 +1,36 @@
+#content { 
+    padding-right: 320px; /* match with sidebar width */
+}
+
+#sidebarContent {
+    position: fixed;
+    width: 320px;
+    max-width: 320px;
+    height: 100%;
+    max-height: 100%;
+    top: 30px; /* match with navbar height */
+    right: 0;
+    padding-bottom: 30px; /* match with navbar height */
+}
+    
+#toggleSidebarButton {
+    position: absolute;
+    top: 5px;
+    left: -29px;
+    z-index: 999;
+    padding: 0 5px;
+}
+
+/* if chat is used inside sidebar */
+#sidebarContent #chat {
+
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.sidebarDisabled#content {
+    padding-right: 0;
+}
+.sidebarDisabled #sidebarContent {
+    width: 0;
+}

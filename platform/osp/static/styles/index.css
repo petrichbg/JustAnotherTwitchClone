@@ -1,0 +1,24 @@
+h1, h4 {
+    margin-top: 0;
+}
+
+#content,
+#pageContent {
+    height: 100%;
+}
+
+#pageContent {
+    padding-top: 20px;
+}
+
+.listIcon {
+    padding-left: 0;
+}
+
+.media {
+    margin-top: 0;
+}
+
+.panel {
+    margin-bottom: 10px;
+}

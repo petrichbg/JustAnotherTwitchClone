@@ -1,0 +1,12 @@
+/osp/static/download/
+/osp/migrations/
+/streaming_platform/settings.py
+/pic/avatar/*
+!/pic/avatar/default_avatar.png
+__pycache__
+osp_project
+.idea
+.vscode
+jsconfig.json
+.editorconfig
+.eslintrc.js

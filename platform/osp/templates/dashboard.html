@@ -1,0 +1,216 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/dashboard.css' %}?v=2" />
+<link rel="stylesheet" type="text/css" href="{% static 'styles/user_list.css' %}?v=2" />
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+    var rtmpServerAddress = "{{rtmp_server_address}}";
+    var roomName = "{{room_name}}";
+</script>
+<script src="{% static 'scripts/ajax_prep.js' %}"></script>
+<script src="{% static 'scripts/dashboard.js?v=4' %}"></script>
+<script src="{% static 'scripts/tabnav.js' %}"></script>
+<script src="{% static 'scripts/jwplayer/jwplayer.js' %}"></script>
+<script>jwplayer.key="";</script>
+{% endblock %}
+
+{% block page_content %}
+<div id="tabContent" role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul id="dashboardContent" class="nav nav-tabs" role="tablist">
+    {% if stream_moderation %}
+    <li role="presentation" class="{% if active_tab_pane == 'stream' %} active {% endif %}">
+        <a href="#stream" aria-controls="stream" role="tab" data-toggle="tab">Стрим</a>
+    </li>
+    {% endif %}
+    {% if home_dashboard %}
+    <li role="presentation" class="{% if active_tab_pane == 'permissions' %} active {% endif %}">
+        <a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab">Доступ к панели</a>
+    </li>
+    <li role="presentation" class="{% if active_tab_pane == 'chat' %} active {% endif %}">
+        <a href="#chatsettings" aria-controls="chatsettings" role="tab" data-toggle="tab">Чат - модераторы</a>
+    </li>
+    {% endif %}
+    {% if chat_moderation %}
+    <li role="presentation" class="{% if active_tab_pane == 'chatbansettings' %} active {% endif %}">
+        <a href="#chatbansettings" aria-controls="chatbansettings" role="tab" data-toggle="tab">Чат - баны</a>
+    </li>
+    {% endif %}
+    {% if home_dashboard %}
+    <li role="presentation" class="{% if active_tab_pane == 'streamkey' %} active {% endif %}">
+        <a href="#streamkey" aria-controls="streamkey" role="tab" data-toggle="tab">Ключ стрима</a>
+    </li>
+    {% endif %}
+    {% if home_dashboard %}
+    <li role="presentation" class="{% if active_tab_pane == 'streamreset' %} active {% endif %}">
+        <a href="#streamreset" aria-controls="streamreset" role="tab" data-toggle="tab">Сброс стрима</a>
+    </li>
+    {% endif %}
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    {% if stream_moderation %}
+    <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'stream' %} active {% endif %} container" id="stream">
+        <div class="row">
+            <div class="panel panel-default col-sm-12" id="dashboardWarningPanel">
+                <div class="panel-body text-center">
+                    <div id="dashboardWarningHeader">ПРОВЕРЯЙ СВОЙ СТРИМ!</div>
+                    <div>Вы прочитали <a href="{% url 'osp:help' %}#basicSettings">руководство</a>? Проверили громкость? Убедились, что стрим не тормозит? <strong>Точно знаете, что хотите показать на стриме?</strong></div>
+                    <div>Ответив <strong>НЕТ</strong> на один из этих вопросов, вы рискуете получить <span style="color: red; font-weight: 700; font-size: 18px;"><strong>BAN</strong></span>.</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <form id="streamDescriptionForm" action="/stream/" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ dashboard_stream_form.stream_description.id_for_label }}">Название стрима</label>
+                            {{ dashboard_stream_form.stream_description }}
+                        </div>
+                        <div class="form-group" title="Сообщение, отображающееся зрителю при входе в чат.">
+                            <label for="{{ dashboard_stream_form.stream_chat_motd.id_for_label }}">Сообщение дня в чате</label>
+                            {{ dashboard_stream_form.stream_chat_motd }}
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label for="{{ dashboard_stream_form.stream_hidden.id_for_label }}" >
+                                        {{ dashboard_stream_form.stream_hidden }} Скрытый стрим
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <span id="helpBlock" class="help-block">Стрим не будет отображаться в списке стримов, о его наличии можно будет узнать только перейдя непосредственно на страницу стрима.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="saveStreamDashboardButton" class="btn btn-default btn-block" name="dashboard_stream_form" value="dashboard_stream_form">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="row" id="playerContainer">
+                    <div id="player">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="btn-toolbar">
+                        <div class="btn-group pull-right">
+                            <div id="viewerCountContainer" class="glyphContainer" data-toggle="tooltip" data-placement="bottom" title="Зрителей" >
+                                <span class="glyphicon glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                <span id="viewerCount">22</span>
+                            </div>
+                            <div class="glyphContainer" data-toggle="tooltip" data-placement="bottom" title="Подписчиков" >
+                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                                <span id="followerCount">22</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                {% include "chat.html" %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if home_dashboard %}
+    <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'permissions' %} active {% endif %}" id="permissions">
+        <div class="container">
+            <div class="row">
+                <h4 class="text-center">Предоставление доступа к панели вашим друзьям даст им возможность изменять название стрима и делать его скрытым за вас.</h4>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center"><strong>Имеют доступ к вашей панели</strong></div>
+                        <div class="panel-body">
+                            {% include "user_list_add.html" with user_list_id='dashboardHelperList' user_list_add_placeholder='Пользователь, получающий допуск' %}
+                        </div>
+                        {% include "user_list.html" with user_list_id='dashboardHelperList' user_list_elements=dashboard_helper_list %}
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center"><strong>Вы имеете доступ к панелям</strong></div>
+                        {% include "user_list.html" with user_list_id='availableDashboardList' user_list_elements=available_dashboard_list user_list_title='Допуск к панелям' %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if chat_moderation %}
+    <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'chat' %} active {% endif %}" id="chatsettings">
+        {% if home_dashboard %}
+        <div class="container">
+            <div class="row">
+                <h4 class="text-center">Назначаемые вами модераторы чата получают возможность выдачи банов.</h4>
+            </div>
+            <div id="op" class="col-sm-offset-2 col-sm-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center"><strong>Модераторы вашего чата</strong></div>
+                    <div class="panel-body">
+                        {% include "user_list_add.html" with user_list_id='opList' user_list_add_placeholder='Новый модератор' %}
+                    </div>
+                    {% include "user_list.html" with user_list_id='opList' user_list_elements=op_list %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'chatbansettings' %} active {% endif %}" id="chatbansettings">
+        <div class="container">
+            {% include "user_list_add_ban.html" with user_list_id='banList' user_list_add_placeholder='Имя' %}
+            <table class="table" id="banList">
+                <!--1,3,5,2,1-->
+                <thead>
+                    <tr>
+                        <th class="col-sm-1"></th>
+                        <th class="col-sm-3">Имя</th>
+                        <th class="col-sm-5">Причина</th>
+                        <th class="col-sm-2">Дата истечения</th>
+                        <th class="col-sm-1"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for ban in ban_list %}
+                    {{ ban }}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+    {% if home_dashboard %}
+    <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'streamkey' %} active {% endif %}" id="streamkey">
+        <div class="container">
+            <h4 class="text-center">Любое лицо может использовать данный ключ, чтобы вещать на вашем канале.</h4>
+            <button id="showStreamKeyButton" class="btn btn-danger btn-block">Показать ключ</button>
+            <div id="streamKeyContainer" class="input-group hidden">
+                <input class="form-control" id="streamKey" value="{{ stream_key }}" type="text" readonly>
+                <span class="input-group-btn">
+                    <button type="submit" id="resetStreamKeyButton" class="btn btn-danger">Сбросить</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'streamreset' %} active {% endif %}" id="streamreset">
+        <div class="container">
+            <h4 class="text-center">Нажатие на данную кнопку разъединит стрим от вашего канала. Воспользуйтесь этим, если вы не можете продолжить стрим после того как у вас пропала сеть или возникли иные неполадки.</h4>
+            <button id="resetStreamButton" class="btn btn-danger btn-lg btn-block" disabled="disabled">Сбросить</button>
+        </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

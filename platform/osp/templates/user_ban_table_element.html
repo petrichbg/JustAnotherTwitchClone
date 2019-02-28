@@ -1,0 +1,7 @@
+<tr>
+    <td class="col-sm-1 banAvatarColumn"><a href="{% url 'osp:profile' user.user.username %}" >{% include "avatar_holder.html" with avatar_src=user.avatar.url avatar_tiny=True %}</a></td>
+    <td class="col-sm-3" title="{{ user.user.username }}"><a href="{% url 'osp:profile' user.user.username %}" ><strong class="username">{{ user.user.username }}</strong></a></td>
+    <td class="col-sm-5">{{ ban.reason | default:"Не указана" }}</td>
+    <td class="col-sm-2">{{ ban.expiry_date | default:"Не указана" }}</td>
+    <td class="col-sm-1"><button type="button" class="btn btn-link btn-md removeBanElementButton" title="Удалить">Удалить</button></td>
+</tr>

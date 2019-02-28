@@ -1,0 +1,35 @@
+#content {
+    display: table;
+    height: 100%;
+}
+
+#pageContent {
+    display: table-cell;
+    text-align: center;
+    
+    padding-top: 20px;
+}
+
+#tabContent {
+    display: inline-block;
+    text-align: left;
+}
+
+.tab-pane {
+    padding-top: 8px;
+}
+
+.avatarHolder {
+    float: left;
+    margin-right: 5px;
+}
+
+textarea,
+#bioPreview {
+    min-height: 250px !important;
+}
+
+#bioPreview {
+    max-height: 400px;
+    overflow: auto;
+}

@@ -1,0 +1,38 @@
+#helpContent img {
+    margin: 8px 0;
+}
+
+#helpContent h4 {
+    margin-top: 32px;
+}
+
+.nav-tabs {
+    border-bottom: 0;
+}
+
+.warningPanel {
+    border: 1px #ddd solid;
+    border-radius: 4px;
+    padding: 8px 0;
+    margin-bottom: 8px;
+}
+
+.warningPanel .glyphicon {
+    font-size: 48px;
+}
+
+.warningPanel .glyphicon-warning-sign {
+    color: orangered;
+}
+
+.warningPanel .glyphicon-ok {
+    color: green;
+}
+
+.tab-content {
+    padding-bottom: 200px;
+}
+
+#tabs {
+    padding-top: 30px;
+}

@@ -1,0 +1,73 @@
+<div id="chat">
+    <div id="chatControls">
+        <div class="btn-group">
+            <div id="chatSettingsButton" class="glyphContainer glyphButton" data-toggle="dropdown" data-placement="bottom" title="Настройки" >
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </div>
+            <div id="chatClientListButton" class="glyphContainer glyphButton" data-toggle="tooltip" data-placement="bottom" title="Список зрителей" >
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            </div>
+            <div id="chatClientViewerCountContainer" class="glyphContainer hidden" data-toggle="tooltip" data-placement="bottom" title="Зрителей" >
+                <span class="glyphicon glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                <span id="chatClientViewerCount">0</span>
+            </div>
+            <div id="chatSettingsDropdown" class="dropdown-menu" role="menu" aria-labelledby="chatSettingsButton">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label><input id="showTimestampsCheckbox" type="checkbox" > Отметки времени</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input id="showChatViewerCountCheckbox" type="checkbox" checked> Отображать число зрителей</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input id="showIgnoredChatMessagesCheckbox" type="checkbox" > Показать проигнорированные сообщения</label>
+                    </div>
+                    <div class="checkbox">                        
+                        <label><input id="chatAutoLoginCheckbox" type="checkbox" checked> Автоматически входить в чат</label>
+                    </div>  
+                    <div class="checkbox">                        
+                        <label><input id="chatLoadRecentMessagesCheckbox" type="checkbox" checked> Загружать последние сообщения</label>
+                    </div>                                               
+                    <div class="checkbox">
+                        <label><input id="chatAutoFocusCheckbox" type="checkbox" > Автофокус на поле ввода сообщения</label>
+                    </div>
+                    <button id="clearChatButton" class="btn btn-xs btn-link" >Очистить чат</button>
+                    <button id="showStandaloneChatButton" class="btn btn-xs btn-link" >Открыть чат в отдельном окне</button>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div id="chatNicknameLabel">nickname</div>
+            {% if user_bio %}
+            <div id="chatProfileInfoSwitchButton" class="glyphContainer glyphButton pull-right" data-toggle="tooltip" data-placement="bottom" title="О стримере" >
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </div>
+            {% endif %}                
+        </div>
+        <div id="chatProfileNicknameLabel" class="pull-right">О {{ username }}</div>            
+
+    </div>   
+    <div id="chatClients">
+        <div id="chatClientsLabel" >ЗРИТЕЛИ</div>
+        <ul id="chatClientsContainer">
+        </ul>
+    </div>
+    <div id="chatMessages" >
+        <ul id="chatMessagesContainer" class="chatMessageTimestampHidden">
+        </ul>
+    </div>
+    <div id="connectionDialogContainer">
+        <div id="connectionDialogLabel">Подключаемся...</div>
+        <div class="text-center">
+            <button id="reconnectButton" class="btn btn-primary" >Подключиться снова</button>
+            <button id="loginButton" class="btn btn-primary" >Войти</button>
+        </div>
+    </div>
+    <div id="chatInputContainer"  >
+        <textarea id="messageTextArea" class="form-control" placeholder="Введите сообщение" maxlength="255"></textarea>
+        <button id="sendMessageButton" class="btn btn-primary btn-block" >Отправить</button>
+    </div>
+    <div id="chatProfileInfo" class="usingMarkdown">
+        {{ user_bio | default:"Пользователь не оставил информации о себе" | safe }}
+    </div>
+</div>

@@ -1,0 +1,109 @@
+#content {
+    display: table;
+    height: 100%;
+}
+
+#pageContent {
+    display: table-cell;
+    text-align: center;
+    
+    padding-top: 20px;
+}
+
+#profileContent {
+    margin-bottom: 8px;
+}
+
+#profileInfo {
+    text-align: left;
+}
+    #profileInfoLeftSide {
+        width: 64px;
+        float: left;
+    }
+        #profileInfoLeftSide .streamingButton {
+            margin-left: 1px;
+            display: inline-block;
+        }
+    #profileInfoRightSide {
+        margin-left: 74px;
+    }
+    
+        #bio {
+            overflow: hidden;
+        }
+#nameChangesDropdown {
+    display: inline;
+}  
+    #nameChangesButton {
+        padding: 0 0 5px;
+        position: relative;
+        color: rgb( 66, 117, 168 );
+        top: -8px;
+    }
+    #nameChangesDropdown .dropdown-menu {
+        top: 0;
+        left: 20px;        
+    }
+
+#streamingButton {
+    width: 64px;
+    height: 24px;
+    
+    color: white;
+    font-weight: 700;
+    background-color: red;
+    text-align: center;
+    line-height: 24px;
+}
+
+#streamingButton a,
+#streamingButton a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+#subscriber, #subscribedTo {
+    text-align: center;
+}
+
+#subscriber .jscroll-added,
+#subscribedTo .jscroll-added {
+    display: inline;
+}
+
+.panel {
+    margin-bottom: 4px;
+    border-radius: 0;
+}
+
+.panel-heading {
+    padding: 4px 15px;
+    border-radius: 0;
+}
+
+#collapseBanPanel .row div {
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+#collapseBanPanel .row {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.panel-body {
+    padding: 4px 20px;
+}
+
+#bansTable td {
+    border-top-color: rgb(161, 161, 161)
+}
+
+#bansTable tr.lifted td {
+    background-color: #d6e9c6 !important;
+}
+
+#bansTable tr.active td {
+    background-color: #f2dede;
+}

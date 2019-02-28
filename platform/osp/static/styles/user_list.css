@@ -1,0 +1,26 @@
+#banList .userListElement .userName {
+    max-width: 213px;
+    display: inline-block;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}    
+    
+    .userListElement .username,
+    .userListElement .username:hover {
+        color: #333;
+        margin-left: 4px;
+    }
+    
+    .userListElement .banDateLabel {
+        margin-top: 6px;
+    }
+    
+    /*.removeUserListElementButton {
+        visibility: hidden;
+    }*/
+    
+.userListErrorMessageContainer {
+    display: none;
+    margin-top: 4px;
+}

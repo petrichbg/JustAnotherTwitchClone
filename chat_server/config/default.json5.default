@@ -1,0 +1,12 @@
+﻿{
+    port: 8124,
+    servicePort: 8268,
+
+    streamHost: '127.0.0.1',
+    streamWebURL: '',
+    streamWebPort: 80,
+
+    logPath: null,
+
+    pidFilePath: null
+}

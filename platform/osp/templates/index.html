@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}" />
+{% endblock %}
+
+{% block page_content %}
+<div id="siteTitle">
+    <div class="container">
+        this used to be an index page
+    </div>
+</div>
+
+{% endblock %}

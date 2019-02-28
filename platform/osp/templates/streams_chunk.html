@@ -1,0 +1,25 @@
+{% load static %}
+{% for stream in streams %}
+<div class="stream row">
+    <a class="streamThumb col-sm-5 col-xs-5" href="{% url 'osp:stream' stream.name %}" style="background-image: url('{{stream_preview_location}}{{stream.name}}.png')"></a>
+    <div class="streamInfo col-sm-7 col-xs-7" >
+        <div class="streamNameContainer">
+            <a href="{% url 'osp:stream' stream.name %}" class="lead streamname">{{ stream.description }}</a>
+        </div>
+        <div class="streamInfoContainer">
+            <a href="{% url 'osp:profile' stream.name %}" class="username">{{ stream.name }}</a> | {{ stream.viewers }} зрителей{% if user.is_staff %} | {{ stream.ip }}{% endif %}
+        </div>
+        {% if admin_quick_hide %}
+        <button type="button" class="btn btn-link btn-xs quickHideStreamButton" title="Скрыть" value="{{ stream.name }}" style="color:black; padding-top: 0;">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>
+        </button>
+        {% endif %}
+    </div>
+</div>
+{% empty %}
+<img id="noStreamsAvailableImage" src="{% static 'images/broken.png' %}">
+<h1 id="noStreamsAvailableLabel" >На данный момент стримов нет</h1>
+{% endfor %}
+{% if has_next_page %}
+<a class="jscroll-next" href="?page={{next_page}}">...</a>
+{% endif %}

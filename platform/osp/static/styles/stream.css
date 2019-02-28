@@ -1,0 +1,150 @@
+#content,
+#pageContent {
+    height: 100%;
+}
+
+.fullscreen #content {
+    padding-top: 0;
+}
+
+.fullscreen nav {
+    display: none;
+}
+
+#mainContainer {
+    position: absolute;
+    top: 32px;
+    bottom: 0;
+    left: 4px;
+    right: 324px;
+}
+    .chatCollapsed #mainContainer {
+        right: 4px;
+    }
+
+    .fullscreen #mainContainer {
+        top: 0px;
+        left: 0px;
+        right: 320px;
+    }
+
+    .fullscreen.chatCollapsed #mainContainer {
+        right: 0;
+    }
+
+#disableFullscreenButton {
+    display: none;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    z-index: 999;
+    padding: 0 5px;
+}
+    .fullscreen #disableFullscreenButton {
+        display: block;
+    }
+    
+    .glyphFullscreen,
+    #toggleSidebarButton { /*lighter */
+        color: #000;
+        background-color: rgba( 255, 255, 255, 0.25 );
+    }
+        .glyphFullscreen:hover,
+        #toggleSidebarButton:hover {
+            background-color: rgba( 255, 255, 255, 0.5 );
+        }
+
+#profileInfo {
+    position: absolute;
+    width: 100%;    
+}
+    .fullscreen #profileInfo {
+        display: none;
+    }
+    #profileInfoLeftSide {
+        width: 64px;
+        float: left;
+    }
+    #profileInfoRightSide {
+        margin-left: 74px;
+    }
+        .lead {
+            margin-bottom: 0;
+        }
+        #descriptionLabel {
+            max-width: 98%;
+            min-height: 29px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+            #descriptionLabel * {
+                font-size: 21px !important;
+            }
+
+#playerContainer {
+    position: absolute;
+    top: 66px;
+    bottom: 38px;    
+    width: 100%;
+    background-color: black;
+}
+    .fullscreen #playerContainer {
+        top: 0px;
+        bottom: 0px;
+    }
+
+#streamOfflineLabel {
+    display: block;
+    
+    position: absolute;
+    padding: 0 4px;
+    margin-left: 4px;
+    margin-top: 4px;
+    font-size: 18px;
+    color: white;
+    background-color: rgba( 100, 100, 100, 0.4 );
+    z-index: 600;
+    border-radius: 4px;
+}
+
+#streamInfo {
+    position: absolute;
+    width: 100%;  
+    bottom: 2px;  
+}
+    .fullscreen #streamInfo {
+        display: none;
+    }
+
+#player {
+    width: 100%;
+    height: 99%;
+}
+
+
+#chatContainer {
+    position: absolute;
+    width: 320px;
+    top: 31px;
+    right: 0;
+    bottom: 0;
+    border-top: 0;
+    border-bottom: 0;  
+
+    border-left: 1px solid rgba( 0, 0, 0, 0.2 )
+}
+    .fullscreen #chatContainer {
+        top: 0;
+    }
+    .chatCollapsed #chatContainer {
+        display: none;
+    }
+    
+#toggleSidebarButton {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 999;
+    padding: 0 5px;
+}

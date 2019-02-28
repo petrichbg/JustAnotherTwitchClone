@@ -1,0 +1,28 @@
+.userListGrid {
+    padding: 0;
+}
+
+    .userListGridElement {
+        display: inline-block;
+        list-style: none outside none;
+        text-align: center;
+        clear: both;
+        width: 128px;
+        
+        padding: 0 2px;
+    }
+        .userListGridElement .avatarHolder {
+            margin: 0 auto;
+        }
+        .userListGridElement .username {
+            max-width: 128px;
+            display: block;
+            margin-bottom: 0;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-size: 18px;
+        }
+        .userListGridElement .username,
+        .userListGridElement .username:hover {
+            color: #333;
+        }

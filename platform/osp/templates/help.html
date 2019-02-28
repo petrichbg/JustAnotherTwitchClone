@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/help.css' %}?v=2" />
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="{% static 'scripts/tabnav_help.js' %}"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    this used to be a help page
+</div>
+{% endblock %}

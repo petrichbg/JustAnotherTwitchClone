@@ -1,0 +1,11 @@
+{% if user_list_add_title %}
+<h4>{{ user_list_add_title }}</h4>
+{% endif %}
+<div class="input-group">
+    <input class="form-control" id="{{ user_list_id }}AddInput" placeholder="{{ user_list_add_placeholder }}" type="text">
+    <span id="{{ user_list_id }}ButtonGroup" class="input-group-btn">
+        <button type="submit" id="{{ user_list_id }}AddButton" class="btn btn-default">Добавить</button>
+    </span>
+</div>
+<div id="{{ user_list_id }}ErrorMessageContainer" class="alert alert-danger userListErrorMessageContainer" role="alert">
+</div>

@@ -1,0 +1,267 @@
+#chat {
+    background-color: rgb( 242, 242, 242 );
+    
+    height: inherit;
+    width: 100%;
+    max-width: inherit;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    font-size: 12px;
+}
+    .sidebarDisabled #chat {
+        display: none;
+    }
+
+#chatControls {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#chatControls,
+.showChatClients.showChatProfileInfo #chatControls {
+    height: 33px;
+}
+
+        .showChatProfileInfo #chatSettingsButton,
+        .showChatProfileInfo #chatClientListButton,
+        .showChatProfileInfo #chatClientViewerCountContainer {
+            visibility: hidden;
+        }
+    
+        #chatSettingsDropdown {
+            width: 319px;
+            padding: 8px;
+            
+            border-radius: 0;
+            box-shadow: none;
+            background-color: rgb( 242, 242, 242 );
+            border-top-style: none;
+            margin-top: 1px;
+            border-left-style: none;
+        }   
+            #chatSettingsDropdown .form-group {
+                margin-bottom: 0;
+            }
+            #chatSettingsDropdown .checkbox:first-child {
+                margin-top: 0;
+            }
+            #chatSettingsDropdown .btn {
+                width: 100%;
+                text-align: left;
+                white-space: pre-line;
+            }
+            
+            #clearChatButton {
+                margin-bottom: 8px;
+            }
+              
+        .hiddenViewerCount #chatClientViewerCountContainer {
+            display: none;
+        }
+
+        #chatNicknameLabel, #chatProfileNicknameLabel {
+            display: none;
+            line-height: 32px;
+            color: #333;
+        }
+            .showChatProfileInfo.showChatClientNickname #chatNicknameLabel {
+                display: none !important;
+            }
+            .showChatClientNickname #chatNicknameLabel,
+            .showChatProfileInfo #chatProfileNicknameLabel {
+                display: inline-block;
+                white-space: nowrap;
+                overflow-x: hidden;
+                text-overflow: ellipsis;
+                max-width: 212px;
+            }
+    
+    #chatClients {
+        display: none;
+        position: absolute;
+        width: 100%;
+        height: 175px;
+        top: 33px;
+    }
+        .showChatProfileInfo #chatClients {
+            display: none !important;
+        }
+        .showChatClients #chatClients {
+            display: block;
+        }
+        #chatClientsLabel {
+            padding: 6px 0 0 6px;
+            color: #888;
+            height: 25px;
+        }
+
+        #chatClientsContainer {
+            list-style: none outside none;
+            padding: 5px 10px;
+            margin: 0;
+
+            height: 150px;
+            overflow: auto;
+            
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+            
+            .chatClientNickname {
+                display: inline-block;
+                width: 49%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+                .chatClientNickname span:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+        
+#chatMessages {
+    width: 100%;
+    position: absolute;
+    top: 33px;
+    bottom: 0;
+}
+
+    .showChatProfileInfo #chatMessages {
+        display: none !important;
+    }
+    .showChatClients #chatMessages {
+        top: 208px;
+    }
+    .showConnectionDialog #chatMessages,
+    .showChatInput #chatMessages {
+        bottom: 124px;
+    }
+    
+    #chatMessagesContainer {
+        max-width: inherit;
+        list-style: none outside none;
+        line-height: 20px;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        height: 100%;
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+        .chatMessage {
+            padding: 4px 8px;
+            display: inline-block;
+        }
+            .chatMessage.chatMessageIgnored,
+            br.chatMessageIgnored {
+                display: none;
+            }
+            .chatMessage.chatMessagePreviouslyIgnored {
+                background-color: rgba( 255, 0, 0, 0.07 );
+            }
+
+        .chatMessageError {
+            padding: 4px 0;
+            color: red;
+        }
+        .chatMessageTimestamp,
+        .chatMessageInfo {
+            color: #8C8C8C;
+        }
+            #chatMessagesContainer.chatMessageTimestampHidden .chatMessage .chatMessageTimestamp {
+                display: none;
+            }
+        
+        .chatMessageNickname {
+            font-weight: 700;
+        }
+            .chatMessageNickname:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+            
+    #connectionDialogContainer {
+        display: none;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        height: 124px;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        padding-top: 20px;
+    }
+        .showConnectionDialog.showChatProfileInfo #connectionDialogContainer {
+            display: none;
+        }
+        .showConnectionDialog #connectionDialogContainer {
+            display: block;
+        }
+        #connectionDialogLabel {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        #reconnectButton {
+            visibility: hidden;
+        }
+        #loginButton {
+            display: none;
+        }
+        
+#chatInputContainer {
+    display: none;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 124px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 4px;  
+}
+    .showChatProfileInfo #chatInputContainer {
+        display: none !important;
+    }
+    .showChatInput #chatInputContainer {
+        display: block;
+    }
+
+    #messageTextArea {
+        resize: none;
+        margin-bottom: 4px;
+        height: 78px;
+    }
+        
+.clientOwner {
+    color: #4988c3 !important;
+}
+.clientModerator {
+    color: #0A0 !important;
+}
+.clientBanned {
+    color: red !important;
+}
+.clientBot {
+    color: mediumpurple !important;
+}
+
+#chatProfileInfo {
+    display: none;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    top: 33px;
+    overflow-x: hidden;
+    overflow-y: auto;    
+
+    list-style: none outside none;
+    padding: 5px 10px;
+    line-height: 20px;
+
+    overflow-x: hidden;    
+}
+    .showChatProfileInfo #chatProfileInfo {
+        display: block;
+    }
+    

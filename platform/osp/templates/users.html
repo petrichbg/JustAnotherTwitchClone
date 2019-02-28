@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %} 
+<link rel="stylesheet" type="text/css" href="{% static 'styles/users.css?v=3' %}" />
+{% endblock %}
+
+{% block additional_scripts %}
+    <script src="{% static 'scripts/jquery.jscroll.min.js' %}"></script>
+    <script src="{% static 'scripts/users.js?v=3' %}"></script>
+{% endblock %}
+
+{% block page_content %}
+<div id="usersOuterContainer" class="container">
+    <div id="usersContainer" class="col-sm-offset-2 col-sm-8 col-xs-10">
+        <h1 class="text-left row" style="margin-top: 0">
+            <strong>Пользователи</strong>
+            <span class="pull-right"><strong><span id="userCount">0</span> чел.</strong></span>
+        </h1>
+        <div id="searchUsersContainer" class="row">
+            <div class="input-group">
+                <input class="form-control" id="searchUsersInput" placeholder="Введите имя пользователя для поиска" type="text">
+                <span id="searchUsersButtonGroup" class="input-group-btn">
+                    <button type="submit" id="searchUsersButton" class="btn btn-default">Искать</button>
+                </span>
+            </div>
+        </div>
+        <div id="profileList" class="col-sm-12">
+
+        </div>
+    </div>
+    <div id="userViewModeContainer" class="btn-group-vertical col-sm-2 col-xs-2" data-toggle="buttons">
+        <label id="showAllUsersButton" class="btn btn-default">
+            <input type="radio" name="options"  autocomplete="off" checked> Все
+        </label>
+        <label id="showActiveUsersButton" class="btn btn-default active">
+            <input type="radio" name="options"  autocomplete="off"> Активные
+        </label>
+    </div>
+</div>
+{% endblock %}

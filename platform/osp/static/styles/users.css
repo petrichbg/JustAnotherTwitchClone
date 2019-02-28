@@ -1,0 +1,43 @@
+#content,
+#pageContent {
+    height: 100%;
+}
+
+#pageContent {
+    padding-top: 20px;
+}
+
+    #searchUsersContainer {
+        margin-bottom: 10px;
+    }
+
+        .profile {
+            list-style: none outside none;
+            clear: both;
+            min-height: 80px;
+        }
+        .avatarHolder {
+            float: left;
+        }
+        
+        .profileInfo {
+            margin-left: 70px;
+            min-height: inherit;
+        }    
+            .profileInfo .username,
+            .profileInfo .username:hover {
+                color: #333;
+                text-decoration: none;
+            }
+            
+            .profileInfo .subscriberCountContainer {
+                min-height: inherit;
+                text-align: center;
+            }
+                .subscriberCount {
+                    font-size: 32px;
+                }
+
+.media {
+    margin-top: 0;
+}

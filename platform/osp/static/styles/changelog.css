@@ -1,0 +1,9 @@
+.panel-heading {
+    padding: 5px 8px;
+}
+.panel-body {
+    padding: 4px;
+}
+    .panel-body ul {
+        margin-bottom: 0;
+    }

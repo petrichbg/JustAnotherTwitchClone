@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/register.css' %}" />
+{% endblock %}
+
+{% block page_content %}
+<form id="registerForm" action="/register/" method="post">
+    {% csrf_token %}
+    <h2>Регистрация</h2>
+    {% if register_form.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ register_form.non_field_errors }}
+        {{ register_form.username.errors }}
+        {{ register_form.password.errors }}
+        {{ register_form.password_confirmation.errors }}
+    </div>
+    {% endif %}
+    {% if authentication_error %}
+    <div class="alert alert-danger" role="alert">
+        {{ authentication_error }}
+    </div>
+    {% endif %}
+    <div class="form-group">
+        <label for="{{ register_form.username.id_for_label }}">Имя:</label>
+        {{ register_form.username }}
+        <p class="help-block">Допустимые символы: a-Z 0-9 - _</p>
+    </div>
+    <div class="form-group">
+        <label for="{{ register_form.password.id_for_label }}">Пароль:</label>
+        {{ register_form.password }}
+    </div>
+    <div class="form-group">
+        <label for="{{ register_form.password_confirmation.id_for_label }}">Подтверждение пароля:</label>
+        {{ register_form.password_confirmation }}
+    </div>
+    <div class="form-group">
+        <span>Регистрируясь, вы подтверждаете, что ознакомились с <a href="{% url 'osp:rules' %}">правилами и замечаниями о ресурсе</a>.</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block" name="register_form" value="register_form">Зарегистрироваться</button>
+</form>
+{% endblock %}

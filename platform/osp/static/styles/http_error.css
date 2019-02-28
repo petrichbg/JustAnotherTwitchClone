@@ -1,0 +1,29 @@
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+		  
+	font-family: 'Courier New', Geneva, sans-serif;
+    font-size: 12px;
+}
+
+#container {
+	position: absolute;
+	width: 400px;
+	height: 30px;
+    text-align: center;
+	
+	margin: auto;
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+    #container img {
+        vertical-align: top;
+    }
+
+    #errorContainer {
+        display: inline-block;
+        text-align: left;
+    }

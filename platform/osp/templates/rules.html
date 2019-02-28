@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/rules.css' %}?v=2" />
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    this used to be a rules page
+</div>
+{% endblock %}

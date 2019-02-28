@@ -1,0 +1,65 @@
+{% load static %}
+
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+        </div>
+    
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="{{ navbar_main_active }}"><a href="{% url 'osp:index' %}" class="{{ update_hot }}">Главная</a></li>
+                <li class="{{ navbar_streams_active }}"><a href="{% url 'osp:streams' %}">Стримы</a></li>
+                <li class="{{ navbar_users_active }}"><a href="{% url 'osp:users' %}">Пользователи</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Инфо <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'osp:rules' %}">Правила</a></li>
+                        <li><a href="{% url 'osp:help' %}#basicSettings">Помощь</a></li>
+                        <li><a href="{% url 'osp:markdown' %}">Разметка</a></li>
+                        <li><a href="{% url 'osp:changelog' %}">История изменений</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if is_user_banned %}
+                <li class="bannedMark"><a href="{% url 'osp:profile' user.username %}#bans"><img src="{% static 'images/ban.png' %}"/></a></li>
+                {% endif %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+                    <ul class="userPagesDropdown hidden-xs dropdown-menu" style="text-align: right;">
+                        <li><a href="{% url 'osp:stream' user.username %}">Стрим</a></li>
+                        <li><a href="{% url 'osp:profile' user.username %}">Профиль</a></li>
+                        <li><a href="{% url 'osp:stream_chat' user.username %}">Чат</a></li>
+                    </ul>
+                    <ul class="userPagesDropdown hidden-sm hidden-md hidden-lg dropdown-menu">
+                        <li><a href="{% url 'osp:stream' user.username %}">Стрим</a></li>
+                        <li><a href="{% url 'osp:profile' user.username %}">Профиль</a></li>
+                        <li><a href="{% url 'osp:stream_chat' user.username %}">Чат</a></li>
+                    </ul>
+                </li>
+                <li class="{{ navbar_user_notifications_active }}" title="Оповещения"><a href="{% url 'osp:notifications' %}" class="glyphicon glyphicon-envelope {{ notifications_hot }}" aria-hidden="true"></a></li>
+                <li id="darkModeButton" title="Темный режим"><a href="#" class="glyphicon glyphicon-lamp" aria-hidden="true"></a></li>
+                <li class="{{ navbar_user_dashboard_active }}"><a href="{% url 'osp:dashboard' user.username %}">Панель</a></li>
+                <li class="{{ navbar_user_settings_active }}"><a href="{% url 'osp:settings' %}">Настройки</a></li>
+                {% if user.is_staff %}
+                <li><a href="/admin/">Админ</a></li>
+                {% endif %}
+                <li><a href="{% url 'osp:logout' %}?next={{request.path}}">Выход</a></li>
+            </ul>
+            {% else %}    
+            <ul class="nav navbar-nav navbar-right">
+                <li id="darkModeButton" title="Темный режим"><a href="#" class="glyphicon glyphicon-lamp" aria-hidden="true"></a></li>
+                <li class="{{ navbar_login_active }}"><a href="{% url 'osp:login' %}?next={{request.path}}">Войти</a></li>
+            </ul>
+            {% endif %}
+
+        </div><!--/.nav-collapse-->
+    </div>
+</nav>

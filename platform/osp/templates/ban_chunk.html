@@ -1,0 +1,22 @@
+<tr class="{% if lifted %}lifted{% endif %} {% if active %}active{% endif %}">
+    <td>{{ context_string }} {% if banned_ip %}({{ banned_ip }}) {% endif %}</td>
+    <td>{{ reason }}{% if issued_by %} - {{ issued_by }}{% endif %}</td>
+    <td>{{ issue_date }}</td>
+    <td>
+        {{ expiry_date }}
+        {% if allowed_to_lift and active and not lifted %}
+        <button
+            type="button"
+            class="btn btn-xs btn-default liftBanButton pull-right"
+            data-id="{{ id }}"
+            data-context="{{ context }}"
+            data-ban-by-ip="{% if banned_ip %}1{% else %}0{% endif %}"
+            title="Снять бан"
+            aria-label="Снять бан"
+            onclick="liftBan( this )"
+        >
+            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+        </button>
+        {% endif %}
+    </td>
+</tr>

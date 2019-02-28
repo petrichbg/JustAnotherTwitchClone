@@ -1,0 +1,55 @@
+<div class="chatUserCard">
+    <div class="chatUserCardUser">
+        {% if bot %}
+        <span href="{% url 'osp:profile' nickname %}" target="_blank" class="chatUserCardAvatar" >{% include "avatar_holder.html" with avatar_src=avatar_url avatar_medium=True %}</span>
+        {% else %}
+        <a href="{% url 'osp:profile' nickname %}" target="_blank" class="chatUserCardAvatar" >{% include "avatar_holder.html" with avatar_src=avatar_url avatar_medium=True %}</a>
+        {% endif %}
+        <div class="chatUserCardUsernameContainer">
+            {% if bot %}
+            <span class="chatUserCardUsername lead clientBot">{{ nickname }}</span>
+            {% else %}
+            <a href="{% url 'osp:profile' nickname %}" target="_blank" class="chatUserCardUsername lead {% if owner %}clientOwner{% endif %} {% if moderator %}clientModerator{% endif %} {% if banned %}clientBanned{% endif %}">{{ nickname }}</a>
+            {% endif %}
+        </div>
+        <button type="button" class="btn btn-link chatUserCardCloseBanControlsButton hidden">
+            <span class="glyphicon glyphicon-triangle-left aria-hidden="true"></span>
+        </button>  
+        <button type="button" class="btn btn-link chatUserCardCloseButton">
+            <span class="glyphicon glyphicon-remove aria-hidden="true"></span>
+        </button>  
+    </div>
+    <div class="chatUserCardControls">
+        <div class="chatUserCardMainControls">
+            {% if can_ignore %}
+            <button type="button" class="btn btn-link chatUserCardIgnoreButton" data-toggle="tooltipChatUserCard" data-placement="top" title="Игнорировать">
+                <span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>
+            </button>     
+            {% endif %}
+            {% if show_moderation %}
+                <button type="button" class="btn btn-link btn-sm chatUserCardBanButton" data-toggle="tooltipChatUserCard" data-placement="top" title="{% if banned %}Разбанить{% else %}Забанить{% endif %}">
+                    {% if banned %}
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    {% else %}
+                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                    {% endif %}
+                </button>   
+            {% endif %}
+        </div>
+        <div class="chatUserCardBanControls hidden">
+            <input type="text" class="form-control chatUserCardBanReason" placeholder="Причина бана" maxlength="300">
+            <input type="text" class="form-control chatUserCardBanLength" placeholder="Длит.">
+            <select class="form-control chatUserCardBanLengthMeasurement">
+                <option>мин.</option>
+                <option selected="selected">ч.</option>
+                <option>дн.</option>
+                <option>нед.</option>
+                <option>мес.</option>
+                <option>вечн.</option>
+            </select>
+            <button type="button" class="btn btn-danger btn-sm chatUserCardBanConfirmButton" data-toggle="tooltipChatUserCard" data-placement="top" title="{% if banned %}Разбанить{% else %}Забанить{% endif %}">
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+            </button> 
+        </div>
+    </div>
+</div>

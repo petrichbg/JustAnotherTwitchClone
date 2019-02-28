@@ -1,0 +1,33 @@
+{% if user_list_add_title %}
+<h4>{{ user_list_add_title }}</h4>
+{% endif %}
+<div id="{{ user_list_id }}ErrorMessageContainer" class="alert alert-danger userListErrorMessageContainer" role="alert">
+</div>
+<!--<div class="input-group">-->
+   
+<div class="row">
+    <div class="col-sm-3">
+        <input class="form-control" id="{{ user_list_id }}AddInput" placeholder="{{ user_list_add_placeholder }}" type="text">
+    </div>
+    <div class="col-sm-6">
+        <input class="form-control" id="banReason" placeholder="Причина бана" type="text" maxlength="300">
+    </div>
+    <div class="col-sm-1">
+        <input class="form-control" type="text" id="banLength" placeholder="Длит.">
+    </div>
+    <div class="col-sm-1">
+        <select class="form-control" id="banLengthMeasurement">
+            <option>мин.</option>
+            <option selected="selected">ч.</option>
+            <option>дн.</option>
+            <option>нед.</option>
+            <option>мес.</option>
+            <option>вечн.</option>
+        </select>
+    </div>
+    <div class="col-sm-1">
+        <span id="{{ user_list_id }}ButtonGroup" >
+            <button type="submit" id="{{ user_list_id }}AddButton" class="btn btn-danger">Забанить</button>
+        </span>
+    </div>        
+</div>

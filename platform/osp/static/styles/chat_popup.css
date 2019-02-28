@@ -1,0 +1,10 @@
+#content
+ {
+    height: 100%;
+    padding-top: 0;
+    overflow-y: hidden;
+}
+
+#pageContent {
+    height: 100%;
+}

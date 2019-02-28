@@ -1,0 +1,7 @@
+{% for user_list_element in user_list_elements %} 
+    {{ user_list_element }}
+{% endfor %}
+
+{% if has_next_page %}
+<a class="jscroll-next" href="?page={{next_page}}{{next_page_link_additions}}">...</a>
+{% endif %}

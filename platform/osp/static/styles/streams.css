@@ -1,0 +1,115 @@
+#content,
+#pageContent {
+    height: 100%;
+}
+
+#pageContent {
+    padding-top: 20px;
+}
+
+    .stream {
+        list-style: none outside none;
+        clear: both;
+        min-height: 120px;
+    }
+    .streamThumb {
+        display: block;
+        width: 196px;
+        height: 110px;
+        
+        background-color: black;
+        margin-left: 8px;
+    }
+    
+    .streamInfo .streamname,
+    .streamInfo .streamname:hover {
+        color: #333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        margin-bottom: 0;
+    }
+    
+    .streamInfo .username,
+    .streamInfoContainer    {
+        color: #666;
+        display: inline;
+    }
+    
+    #noStreamsAvailableLabel {
+        text-align: center;
+    }
+    
+    #noStreamsAvailableImage {
+        margin: 0 auto;
+        display: block;
+    }
+
+#backgroundImage {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
+
+#adviceBlock {
+    position: fixed;
+    width: 300px;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+#adviceBlockBottomContainer {
+    position: absolute;
+    bottom: 0;
+}
+
+#robin {
+    display: block;
+    margin-left: 202px;
+}
+
+#speechBubbleTriangles {
+    height: 30px;
+}
+
+#speechBubbleOuterTriangle {
+    width: 0;
+    height: 0;
+    border-top: 40px solid black;
+    border-left: 30px solid transparent;
+    right: 102px;
+    position: absolute;
+    bottom: 75px;
+}
+
+#speechBubbleInsideTriangle {
+    width: 0;
+    height: 0;
+    border-top: 41px solid rgb(255, 255, 255);
+    border-left: 30px solid transparent;
+    right: 104px;
+    position: absolute;
+    bottom: 80px;
+}
+
+#speechBubble {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+
+    border: 2px solid black;
+    border-radius: 10px;
+    position: relative;
+    right: -10px;
+    max-width: 200px;
+    padding: 4px;
+
+    background-color: white;
+}
+
+#speechBubble * {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

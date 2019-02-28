@@ -1,0 +1,209 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/profile.css' %}?v=2" />
+<link rel="stylesheet" type="text/css" href="{% static 'styles/user_list_grid.css' %}?v=2" />
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="{% static 'scripts/ajax_prep.js' %}"></script>
+<script src="{% static 'scripts/jquery.jscroll.min.js' %}"></script>
+<script src="{% static 'scripts/follow.js?v=2' %}"></script>
+{% if user.is_staff %}
+<script src="{% static 'scripts/profile_admin.js' %}"></script>
+{% endif %}
+<script src="{% static 'scripts/profile.js?v=2' %}"></script>
+<script src="{% static 'scripts/tabnav.js' %}"></script>
+{% endblock %}
+
+{% block page_content %}
+{% if user_does_not_exist %}
+<div>
+    пользователя не существует
+</div>
+{% else %}
+
+<div id="profileInfo" class="container">
+    <div class="col-sm-12">
+        <div class="row media">
+            <div class="media-left">
+                {% include "avatar_holder.html" with avatar_src=avatar_url %}
+            </div>
+            <div class="media-body">
+                <h3 style="margin-top: 0;margin-bottom: 4px;">
+                    {{ username }}
+                    {% if name_changes %}
+                    <div class="dropdown" id="nameChangesDropdown">
+                        <div id="nameChangesButton" class="glyphContainer glyphButton" data-toggle="dropdown" data-placement="bottom" title="Имена" >
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </div>
+                        <ul class="dropdown-menu" aria-labelledby="nameChangesButton">
+                            <li class="dropdown-header" style="color:black">Был известен как:</li>
+                            {% for username in name_changes %}
+                            <li class="dropdown-header">{{ username }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if streaming %}
+                    <a class="streamingButton" href="{% url 'osp:stream' username %}">СТРИМ</a>
+                    {% endif %}
+                    {% if can_follow %}
+                    <span class="pull-right">{% include "follow_button.html" %}</span>
+                    {% endif %}
+                </h3>
+                <div style="display: inline-block">
+                    <div><strong>Дата регистрации:</strong> {{ register_date | date:'d E Y H:i' }}</div>
+                    <div><strong>Последняя активность:</strong> {{ last_activity_date | date:'d E Y H:i' }}</div>
+                </div>
+                {% if user.is_staff %}
+                <div class="pull-right">
+                    <div><strong>IP регистрации:</strong> {{ registration_ip }}</div>
+                    <div><strong>IP последней активности:</strong> {{ last_login_ip }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Nav tabs -->
+            <ul id="profileContent" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="{% if active_tab_pane == 'profile' %} active {% endif %}">
+                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Профиль</a>
+                </li>
+                <li role="presentation" class="{% if active_tab_pane == 'subscriber' %} active {% endif %}">
+                    <a href="#subscriber" aria-controls="subscriber" role="tab" data-toggle="tab" id="subscriberListTitle">{{subscriber_list_title}}</a>
+                </li>
+                <li role="presentation" class="{% if active_tab_pane == 'subscribedTo' %} active {% endif %}">
+                    <a href="#subscribedTo" aria-controls="subscribedTo" role="tab" data-toggle="tab">{{subscribed_to_list_title}}</a>
+                </li>
+                {% if user.username == username or user.is_staff %}
+                <li role="presentation" class="{% if active_tab_pane == 'bans' %} active {% endif %}">
+                    <a href="#bans" aria-controls="bans" role="tab" data-toggle="tab">Баны</a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'profile' %} active {% endif %} usingMarkdown" id="profile">
+                    {{ bio | default:"Пользователь не оставил информации о себе" | safe }}
+                </div>
+                <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'subscriber' %} active {% endif %}" id="subscriber">
+                    <div class="col-sm-10 col-xs-10">
+                    {% include "user_list_grid.html" with user_list_id='subscriber' user_list_elements=subscriber_list user_list_title=subscriber_list_title next_page_link_additions='&list=subscriber&showActiveUsers=true' next_page=subscriber_next_page has_next_page=subscriber_has_next_page %}
+                    </div>
+                    <div id="subscriberViewModeContainer" class="btn-group-vertical col-sm-2 col-xs-2" data-toggle="buttons">
+                        <label id="subscriberViewShowAllUsersButton" class="btn btn-default">
+                            <input type="radio" name="options"  autocomplete="off" checked> Все
+                        </label>
+                        <label id="subscriberViewShowActiveUsersButton" class="btn btn-default active">
+                            <input type="radio" name="options"  autocomplete="off"> Активные
+                        </label>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'subscribedTo' %} active {% endif %}" id="subscribedTo">
+                    {% include "user_list_grid.html" with user_list_id='subscribedTo' user_list_elements=subscribed_to_list user_list_title=subscribed_to_list_title next_page_link_additions='&list=subscribed_to' next_page=subscribed_to_next_page has_next_page=subscribed_to_has_next_page %}
+                </div>
+
+                {% if user.username == username or user.is_staff %}
+                <div role="tabpanel" class="tab-pane {% if active_tab_pane == 'bans' %} active {% endif %}" id="bans">
+
+                    {% if user.is_staff %}
+                    <div id="banErrorMessageContainer" class="alert alert-danger hidden" role="alert">
+                    </div>
+
+                    <div class="panel panel-danger">
+                        <div class="panel-heading" role="tab" id="banPanelHeader">
+                            <h4 class="panel-title">
+                                <div class="text-center" role="button" data-toggle="collapse" href="#collapseBanPanel" aria-expanded="true" aria-controls="collapseBanPanel">
+                                    <strong>КИНУТЬ БАН</strong>
+                                </div>
+                            </h4>
+                        </div>
+                        <div id="collapseBanPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="banPanelHeader">
+                            <div class="panel-body">
+                                <div class="row text-center">
+                                    <p>
+                                        there used to be some text
+                                    </p>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <select class="form-control" id="banContext">
+                                            <option selected="selected">На вещание</option>
+                                            <option>На просмотр</option>
+                                            <option>На все чаты</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="btn-group pull-right" id="banTarget" data-toggle="buttons">
+                                        <label class="btn btn-default active" data-value="0">
+                                            <input type="radio" name="options" id="banTargetUser" autocomplete="off"  checked> Пользователю
+                                        </label>
+                                        <label class="btn btn-default" data-value="1">
+                                            <input type="radio" name="options" id="banTargetRegistrationIP" autocomplete="off"> По IP-регистрации
+                                        </label>
+                                        <label class="btn btn-default" data-value="2">
+                                            <input type="radio" name="options" id="banTargetLastActivityIP" autocomplete="off"> По IP последней активности
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="banReason" placeholder="За что?" type="text" maxlength="300">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input class="form-control" type="text" id="banLength" placeholder="Длит.">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <select class="form-control" id="banLengthMeasurement">
+                                            <option>мин.</option>
+                                            <option selected="selected">ч.</option>
+                                            <option>дн.</option>
+                                            <option>нед.</option>
+                                            <option>мес.</option>
+                                            <option>вечн.</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" id="banButton" class="btn btn-danger btn-block">Забанить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <td class="col-xs-2"><strong>Контекст</strong></td>
+                                <td class="col-xs-6"><strong>Причина</strong></td>
+                                <td class="col-xs-2"><strong>Назначен</strong></td>
+                                <td class="col-xs-2"><strong>До</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody id="bansTable">
+
+                        </tbody>
+                    </table>
+
+                    {% if user.username == username %}
+                    <hr>
+                    <div class="text-center">
+                        <p>
+                            there used to be some text
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

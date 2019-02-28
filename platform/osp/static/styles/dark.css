@@ -1,0 +1,147 @@
+body.dark {
+    background-color: rgb( 22, 22, 22 );
+    color: #8C8C9C;
+}
+
+.dark .btn-default,
+.dark .btn-primary,
+.dark .list-group-item,
+.dark .nav-tabs > li.active > a,
+.dark .chatUserCard {
+    background-color: rgb( 66, 66, 66 );
+    border-color: rgb( 66, 66, 66 );
+    color: #BBBBCB;
+}
+
+.dark .btn-primary:active,
+.dark .btn-default.active,
+.dark .list-group-item.active {
+    background-color: #333;
+}
+
+.dark .btn-default.focus,
+.dark .btn-default:hover,
+.dark .btn-primary:focus,
+.dark .btn-primary:hover,
+.dark .list-group-item.active:focus,
+.dark .list-group-item.active:hover,
+.dark .open > .dropdown-toggle.btn-default {
+    background-color: #555;
+}
+.dark a.list-group-item:hover {
+    background-color: #555;
+    color: #BBBBCB;
+}
+
+.dark .glyphicon {
+    color: gray;
+}
+
+.dark .panel {
+    background-color: rgb( 50, 50, 50 );
+}
+
+.dark .panel-default,
+.dark .list-group-item.active:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .panel-default > .panel-heading {
+    background-color: #888;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .panel-default > .panel-heading + .panel-collapse > .panel-body,
+.dark .nav-tabs {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/*streams / users */
+.dark .streamInfo .streamname,
+.dark .streamInfo .streamname:hover,
+.dark .profileInfo .username,
+.dark .profileInfo .username:hover,
+.dark .userListGridElement .username,
+.dark .userListGridElement .username:hover,
+.dark #banList a {
+    color: #8C8C9C;
+}
+
+
+/*textarea*/
+.dark textarea,
+.dark input[type=text],
+.dark select,
+.dark .well {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #8C8C9C;         
+} 
+.dark textarea:focus,
+.dark input[type=text]:focus,
+.dark select:focus {
+    box-shadow: 0 1px 1px rgba(140, 140, 156, 0.075) inset, 0 0 8px rgba(140, 140, 156, 0.6) !important;
+}
+.dark a:focus,
+.dark textarea:focus,
+.dark select:focus {
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #8C8C9C;
+}
+
+/*chat*/
+.dark #chat {
+    background-color: rgb( 22, 22, 22 );
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark #chatSettingsDropdown {
+        background-color: rgb( 22, 22, 22 );
+        border-color: rgba(255, 255, 255, 0.2 );
+        color: #8C8C9C;
+}
+.dark #chatNicknameLabel,
+.dark #chatProfileNicknameLabel {
+    color: #8C8C9C;
+}
+
+
+.dark #chatControls,
+.dark #chatControlsContainer,
+.dark #chatClientsContainer {
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+.dark #chatContainer {
+    border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark #chatInputContainer {
+    border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .chatMessage.chatMessagePreviouslyIgnored {
+    background-color: rgba( 255, 255, 255, 0.07 );
+}
+
+.dark .showConnectionDialog #connectionDialogContainer,
+.dark .warningPanel {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .btn-danger .glyphicon {
+    color: #fff;
+}
+
+/*modals*/
+.dark .modal-content {
+    background-color: rgb( 22, 22, 22 );
+    border-color: rgba(255, 255, 255, 0.2);
+}
+.dark .modal-footer {
+    border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+/*robin*/
+.dark #speechBubble {
+    color: #333;
+}

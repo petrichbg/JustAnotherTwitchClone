@@ -1,0 +1,133 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/stream.css?v=4' %}" />
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+    var rtmpServerAddress = "{{rtmp_server_address}}";
+    var roomName = "{{room_name}}";
+</script>
+<script src="{% static 'scripts/ajax_prep.js' %}"></script>
+<script src="{% static 'scripts/stream.js?v=4' %}"></script>
+<script src="{% static 'scripts/follow.js?v=2' %}"></script>
+{% if using_legacy_player %}
+<script>usingLegacyPlayer = true</script>
+<script src="{% static 'scripts/jwplayer6/jwplayer.js' %}"></script>
+{% else %}
+<script src="{% static 'scripts/jwplayer/jwplayer.js' %}"></script>
+<script>jwplayer.key="";</script>
+{% endif %}
+
+{% endblock %}
+
+{% block page_content %}
+<div id="mainContainer" class="container-fluid">
+    <div id="toggleSidebarButton" class="glyphContainer glyphButton" data-toggle="tooltip" data-placement="left" title="Скрыть чат">
+        <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+    </div>
+
+    <div id="profileInfo" class="row">
+        <div id="profileInfoLeftSide">
+            <a href="{% url 'osp:profile' username %}" >{% include "avatar_holder.html" with avatar_src=avatar_url %}</a>
+        </div>
+        <div id="profileInfoRightSide">
+            <p class="lead"><span id="descriptionLabel" title=""></span></p>
+            <a href="{% url 'osp:profile' username %}" >{{ username }}</a>
+            {% if stream_settings_access %}
+            <button type="button" id="changeStreamSettingsButton" class="btn-link" data-toggle="modal" data-target="#streamSettings">
+                Изменить
+            </button>
+            {% endif %}
+        </div>
+    </div>
+    <div id="playerContainer" class="row">
+        <div id="disableFullscreenButton" class="glyphContainer glyphButton glyphFullscreen" data-toggle="tooltip" data-placement="right" title="Выйти из полноэкранного режима">
+            <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+        </div>
+        <div id="streamOfflineLabel">
+            OFFLINE
+        </div>
+
+        {% if use_mobile_player %}
+        <video id="player" class="isMobile" controls >
+            <source src="/hls/{{ username }}/index.m3u8" />
+        </video>
+        {% else %}
+        <div id="player">
+        </div>
+        {% endif %}
+    </div>
+    <div id="streamInfo" class="row">
+        <div class="pull-left">
+            <button id="fullscreenButton" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Полноэкранный режим">
+                <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+            </button>
+            <button id="playerSettingsButton" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Настройки плеера" >
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </button>
+
+            <span id="playerSettings" class="invisible" >
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="playerStretchingOptions" id="playerKeepAspectRatio" autocomplete="off" checked> Пропорционально
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="playerStretchingOptions" id="playerFit" autocomplete="off"> Растягивать
+                    </label>
+                </div>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default">
+                        <input type="checkbox" id="autoPlayCheckbox" autocomplete="off" > Автоматически включать стрим
+                    </label>
+                </div>
+            </span>
+        </div>
+
+        <div class="pull-right">
+            <div id="viewerCountContainer" class="glyphContainer hidden" data-toggle="tooltip" data-placement="top" title="Зрителей" >
+                <span class="glyphicon glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                <span id="viewerCount">0</span>
+            </div>
+            <div class="glyphContainer" data-toggle="tooltip" data-placement="top" title="Подписчиков" >
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <span id="followerCount">0</span>
+            </div>
+            {% if user.is_authenticated and username != user.username %}
+            {% include "follow_button.html" %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div id="chatContainer">
+    {% include "chat.html" %}
+</div>
+<div class="modal" id="streamSettings" tabindex="-1" role="dialog" aria-labelledby="streamSettingsLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form id="streamDescriptionForm" action="/stream/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ dashboard_stream_form.stream_description.id_for_label }}">Название стрима</label> {{ dashboard_stream_form.stream_description }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ dashboard_stream_form.stream_chat_motd.id_for_label }}">Сообщение дня в чате</label> {{ dashboard_stream_form.stream_chat_motd }}
+                    </div>
+                    <div class="checkbox">
+                        <label for="{{ dashboard_stream_form.stream_hidden.id_for_label }}">
+                        {{ dashboard_stream_form.stream_hidden }} Скрытый стрим
+                    </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button id="saveStreamSettingsButton" type="button" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

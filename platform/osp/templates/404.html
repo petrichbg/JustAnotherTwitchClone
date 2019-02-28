@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load staticfiles %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>404</title>
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/http_error.css' %}" />
+    </head>
+    <body>
+        <div id="container">
+            <img src="{% static 'images/frog.gif' %}">
+            <div id="errorContainer">
+                <div id="errorCode">404</div>
+                <div id="errorMessage">Страница не найдена</div>
+                <div id="errorMessage2"><a href="{% url 'osp:index' %}">Вернуться на главную</a></div>
+            </div>
+        </div>
+    </body>
+</html>
+

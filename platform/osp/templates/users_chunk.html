@@ -1,0 +1,27 @@
+{% for user in users %}
+<div class="profile row media text-left">
+    <div class="media-left">
+        <a href="{% url 'osp:profile' user.username %}" >{% include "avatar_holder.html" with avatar_src=user.avatar %}</a>
+    </div>
+    <div class="profileInfo media-body">
+        <div>
+            <a href="{% url 'osp:profile' user.username %}" class="lead username">{{ user.username }}</a>
+            {% if user.subscriber_count %}
+            <div class="subscriberCountContainer pull-right text-center">
+                <div class="subscriberCount" >{{user.subscriber_count}}</div>
+                <div class="subscriberCountLabel">подписчиков</div>
+            </div>
+            {% endif %}          
+            {% if user.streaming %}
+            <div>
+            <a class="streamingButton" href="{% url 'osp:stream' user.username %}">СТРИМ</a>    
+            <small>{{user.stream_description}}</small>
+            </div>
+            {% endif %}      
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% if has_next_page %}
+<a class="jscroll-next" href="?page={{next_page}}{{next_page_link_additions}}">...</a>
+{% endif %}
